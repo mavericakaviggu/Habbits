@@ -45,3 +45,6 @@ desktop.ini
 # Database
 *.db
 *.sqlite
+backend/data/
+*.mv.db
+*.trace.db

@@ -5,13 +5,20 @@
   padding: 20px;
 }
 
-.habit-list-container header {
+/* Page header with action button */
+.page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
   flex-wrap: wrap;
   gap: 15px;
+}
+
+.page-header h2 {
+  color: #2c3e50;
+  font-size: 1.75rem;
+  margin: 0;
 }
 
 .habit-list-container h1 {

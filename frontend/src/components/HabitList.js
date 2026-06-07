@@ -140,8 +140,8 @@ const HabitList = () => {
 
     return (
         <div className="habit-list-container">
-            <header>
-                <h1>My Habits</h1>
+            <div className="page-header">
+                <h2>My Habits</h2>
                 <button 
                     onClick={() => setShowForm(!showForm)}
                     className="btn-primary"
@@ -149,7 +149,7 @@ const HabitList = () => {
                 >
                     {showForm ? 'Cancel' : 'Add Habit'}
                 </button>
-            </header>
+            </div>
 
             {showForm && (
                 <form onSubmit={handleSubmit} className="habit-form">

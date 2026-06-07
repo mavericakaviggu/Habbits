@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import HabitService from '../services/HabitService';
 import HabitEntryService from '../services/HabitEntryService';
+import DailyTracker from './DailyTracker';
 import '../styles/HabitList.css';
 
 /**
@@ -140,16 +141,18 @@ const HabitList = () => {
 
     return (
         <div className="habit-list-container">
-            <div className="page-header">
-                <h2>My Habits</h2>
-                <button 
-                    onClick={() => setShowForm(!showForm)}
-                    className="btn-primary"
-                    aria-label="Add new habit"
-                >
-                    {showForm ? 'Cancel' : 'Add Habit'}
-                </button>
-            </div>
+            <div className="habit-content-wrapper">
+                <div className="habit-main-section">
+                    <div className="page-header">
+                        <h2>My Habits</h2>
+                        <button 
+                            onClick={() => setShowForm(!showForm)}
+                            className="btn-primary"
+                            aria-label="Add new habit"
+                        >
+                            {showForm ? 'Cancel' : 'Add Habit'}
+                        </button>
+                    </div>
 
             {showForm && (
                 <form onSubmit={handleSubmit} className="habit-form">
@@ -276,6 +279,12 @@ const HabitList = () => {
                     ))
                 )}
             </main>
+                </div>
+
+                <aside className="habit-sidebar">
+                    <DailyTracker />
+                </aside>
+            </div>
         </div>
     );
 };

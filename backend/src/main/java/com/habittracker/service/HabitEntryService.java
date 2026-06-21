@@ -54,6 +54,9 @@ public class HabitEntryService {
      */
     public HabitEntry createOrUpdateEntry(HabitEntryDTO habitEntryDTO) {
         Habit habit = habitService.getHabitById(habitEntryDTO.getHabitId());
+        if (habit == null) {
+            throw new RuntimeException("Habit not found with id: " + habitEntryDTO.getHabitId());
+        }
         
         LocalDate entryDate = habitEntryDTO.getEntryDate() != null 
                 ? habitEntryDTO.getEntryDate() 

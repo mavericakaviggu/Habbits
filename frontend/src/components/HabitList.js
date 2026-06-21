@@ -11,6 +11,7 @@ import '../styles/HabitList.css';
  */
 const HabitList = () => {
     const [habits, setHabits] = useState([]);
+    const [completedToday, setCompletedToday] = useState({});
     const [showForm, setShowForm] = useState(false);
     const [editingHabit, setEditingHabit] = useState(null);
     const [formData, setFormData] = useState({
@@ -120,7 +121,12 @@ const HabitList = () => {
             entryDate: today,
             completed: true
         })
-        .then(() => console.log('Habit marked as complete'))
+        .then(() => {
+        setCompletedToday(prev => ({
+            ...prev,
+            [habitId]: true
+        }));
+    })
         .catch(error => console.error('Error updating entry:', error));
     };
 
@@ -255,10 +261,11 @@ const HabitList = () => {
                             <footer className="habit-actions">
                                 <button 
                                     onClick={() => toggleCompletion(habit.id)}
-                                    className="btn-success"
+                                    className={completedToday[habit.id] ? "btn-success" : "btn-primary"}
+                                    disabled={completedToday[habit.id]}
                                     aria-label={`Mark ${habit.name} as complete for today`}
                                 >
-                                    ✓ Done Today
+                                    {completedToday[habit.id] ? "✓ Completed" : "Done Today?"}
                                 </button>
                                 <button 
                                     onClick={() => handleEdit(habit)}

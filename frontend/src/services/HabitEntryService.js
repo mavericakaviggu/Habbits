@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // For mobile access, use your PC's IP address
 // For local development only, use http://localhost:8080/api
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://192.168.1.10:8080/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
 
 /**
  * API service for habit entry management.

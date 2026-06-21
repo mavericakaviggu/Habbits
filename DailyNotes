@@ -1,0 +1,4 @@
+21-Jun-2026
+ISSUE  -> Habits marked as "✓ Completed" would revert to "Done Today?" after reloading the page because the completion status was only stored in the frontend state.
+CHANGE -> The application now retrieves today's completion status from the backend, updates the completed habits state, and correctly displays the button status based on data stored in the database.
+IMPROVEMENT NEEDED -> Makes single calls for each of the habbit, instead of one get all Habbits call. THis needs to be improved.

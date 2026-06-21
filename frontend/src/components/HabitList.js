@@ -27,13 +27,39 @@ const HabitList = () => {
     }, []);
 
     /**
-     * Load all habits from the backend.
+     * Load all habits from the backend and check today's completion status.
      * Efficient: Minimizes API calls by loading once on mount.
      */
     const loadHabits = () => {
+        const today = new Date().toISOString().split('T')[0];
+        
         HabitService.getAllHabits()
             .then(response => {
-                setHabits(response.data);
+                const allHabits = response.data;
+                setHabits(allHabits);
+                
+                // Check completion status for each habit for today
+                const completionPromises = allHabits.map(habit =>
+                    HabitEntryService.getEntriesByDateRange(habit.id, today, today)
+                        .then(entriesResponse => {
+                            const todayEntry = entriesResponse.data.find(
+                                entry => entry.entryDate === today && entry.completed
+                            );
+                            return { habitId: habit.id, completed: !!todayEntry };
+                        })
+                        .catch(() => ({ habitId: habit.id, completed: false }))
+                );
+
+                return Promise.all(completionPromises);
+            })
+            .then(completionStatuses => {
+                const completedMap = {};
+                completionStatuses.forEach(status => {
+                    if (status.completed) {
+                        completedMap[status.habitId] = true;
+                    }
+                });
+                setCompletedToday(completedMap);
             })
             .catch(error => {
                 console.error('Error loading habits:', error);

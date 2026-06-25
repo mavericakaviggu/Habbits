@@ -1,6 +1,11 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed
 
+When you click on habit card, the checklist gets updated but the oppsoite doenst take place accordingly, it is needing a refresh button.
+
 25-Jun-2026
+ISSUE  -> The "Done Today?" button was disabled once clicked, preventing users from un-marking a habit if clicked by mistake or if they wanted to change their completion status.
+CHANGE -> Made the button fully toggleable by removing the disabled attribute and updating toggleCompletion to flip between completed and incomplete states. Each toggle triggers a refreshTrigger update, ensuring the DailyTracker checklist stays synchronized in real-time.
+
 ISSUE  -> When clicking "Done Today?" on a habit card, only the card updated to "Completed" status. The checklist sidebar didn't reflect the change until the page was refreshed - the two components weren't synchronized.
 CHANGE -> Added a refreshTrigger state in HabitList that increments each time a habit is marked complete. This trigger is passed as a prop to DailyTracker, which now watches for changes and automatically reloads its data. Result: instant synchronization between habit cards and checklist without page refresh.
 

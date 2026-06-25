@@ -143,15 +143,17 @@ const HabitList = () => {
      */
     const toggleCompletion = (habitId) => {
         const today = new Date().toISOString().split('T')[0];
+        const isCurrentlyCompleted = completedToday[habitId];
+        
         HabitEntryService.createOrUpdateEntry({
             habitId: habitId,
             entryDate: today,
-            completed: true
+            completed: !isCurrentlyCompleted
         })
         .then(() => {
         setCompletedToday(prev => ({
             ...prev,
-            [habitId]: true
+            [habitId]: !isCurrentlyCompleted
         }));
         // Trigger DailyTracker refresh
         setRefreshTrigger(prev => prev + 1);
@@ -291,8 +293,7 @@ const HabitList = () => {
                                 <button 
                                     onClick={() => toggleCompletion(habit.id)}
                                     className={completedToday[habit.id] ? "btn-success" : "btn-primary"}
-                                    disabled={completedToday[habit.id]}
-                                    aria-label={`Mark ${habit.name} as complete for today`}
+                                    aria-label={completedToday[habit.id] ? `Mark ${habit.name} as incomplete` : `Mark ${habit.name} as complete for today`}
                                 >
                                     {completedToday[habit.id] ? "✓ Completed" : "Done Today?"}
                                 </button>

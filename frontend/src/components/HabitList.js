@@ -14,6 +14,7 @@ const HabitList = () => {
     const [completedToday, setCompletedToday] = useState({});
     const [showForm, setShowForm] = useState(false);
     const [editingHabit, setEditingHabit] = useState(null);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -152,6 +153,8 @@ const HabitList = () => {
             ...prev,
             [habitId]: true
         }));
+        // Trigger DailyTracker refresh
+        setRefreshTrigger(prev => prev + 1);
     })
         .catch(error => console.error('Error updating entry:', error));
     };
@@ -315,7 +318,7 @@ const HabitList = () => {
                 </div>
 
                 <aside className="habit-sidebar">
-                    <DailyTracker />
+                    <DailyTracker refreshTrigger={refreshTrigger} />
                 </aside>
             </div>
         </div>

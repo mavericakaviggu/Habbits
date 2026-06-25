@@ -1,3 +1,9 @@
+give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed
+
+25-Jun-2026
+ISSUE  -> When clicking "Done Today?" on a habit card, only the card updated to "Completed" status. The checklist sidebar didn't reflect the change until the page was refreshed - the two components weren't synchronized.
+CHANGE -> Added a refreshTrigger state in HabitList that increments each time a habit is marked complete. This trigger is passed as a prop to DailyTracker, which now watches for changes and automatically reloads its data. Result: instant synchronization between habit cards and checklist without page refresh.
+
 21-Jun-2026
 ISSUE  -> Habits marked as "✓ Completed" would revert to "Done Today?" after reloading the page because the completion status was only stored in the frontend state.
 CHANGE -> The application now retrieves today's completion status from the backend, updates the completed habits state, and correctly displays the button status based on data stored in the database.

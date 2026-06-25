@@ -8,14 +8,14 @@ import '../styles/DailyTracker.css';
  * Component to display today's habit tracking with radio buttons.
  * Shows current date and allows users to mark habits as complete.
  */
-const DailyTracker = () => {
+const DailyTracker = ({ refreshTrigger }) => {
     const [habits, setHabits] = useState([]);
     const [completedHabits, setCompletedHabits] = useState(new Set());
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadTodayData();
-    }, []);
+    }, [refreshTrigger]);
 
     /**
      * Load habits and today's completion status.

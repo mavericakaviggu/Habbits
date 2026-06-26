@@ -319,7 +319,7 @@ const HabitList = () => {
                 </div>
 
                 <aside className="habit-sidebar">
-                    <DailyTracker refreshTrigger={refreshTrigger} />
+                    <DailyTracker refreshTrigger={refreshTrigger} onCompletionChange={loadHabits} />
                 </aside>
             </div>
         </div>

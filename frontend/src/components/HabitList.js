@@ -134,7 +134,10 @@ const HabitList = () => {
     const handleDelete = (id) => {
         if (window.confirm('Are you sure you want to delete this habit?')) {
             HabitService.deleteHabit(id)
-                .then(() => loadHabits())
+                .then(() => {
+                    loadHabits();
+                    setRefreshTrigger(prev => prev + 1);
+                })
                 .catch(error => console.error('Error deleting habit:', error));
         }
     };

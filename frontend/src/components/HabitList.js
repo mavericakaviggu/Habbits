@@ -227,7 +227,7 @@ const HabitList = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="frequency">Frequency</label>
                         <select
                             id="frequency"
@@ -239,7 +239,7 @@ const HabitList = () => {
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                         <label htmlFor="targetCount">Target Count</label>
@@ -291,7 +291,7 @@ const HabitList = () => {
                             </header>
                             {habit.description && <p>{habit.description}</p>}
                             <div className="habit-details">
-                                <span>Frequency: {habit.frequency}</span>
+                                {/* <span>Frequency: {habit.frequency}</span> */}
                                 <span>Target: {habit.targetCount}x</span>
                             </div>
                             <footer className="habit-actions">

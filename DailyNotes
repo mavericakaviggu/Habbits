@@ -1,5 +1,10 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+
+28-Jun-2026 - Live update for newly created habits in DailyTracker
+ISSUE → Creating a new habit via "Add Habit" button didn't update the DailyTracker checklist in real-time. The new habit only appeared in the sidebar checklist after a page refresh.
+CHANGE → Added setRefreshTrigger(prev => prev + 1) to both create and update paths in the handleSubmit function. Now when a habit is created or updated, the DailyTracker component automatically refreshes and displays the new habit immediately without requiring a page refresh.
+
 26-Jun-2026 - Fix bidirectional sync between habit cards and checklist
 ISSUE  -> Unchecking a checkbox in the DailyTracker checklist didn't update the corresponding habit card in real-time. Only card→checklist sync worked, but checklist→card required a page refresh.
 CHANGE -> Added onCompletionChange callback prop to DailyTracker that notifies parent HabitList to reload habits when checklist changes. Now bidirectional sync works: updating either the habit card or checklist instantly reflects in the other without page refresh.

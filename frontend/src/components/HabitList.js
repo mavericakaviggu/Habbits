@@ -97,6 +97,7 @@ const HabitList = () => {
                 .then(() => {
                     loadHabits();
                     resetForm();
+                    setRefreshTrigger(prev => prev + 1);
                 })
                 .catch(error => console.error('Error updating habit:', error));
         } else {
@@ -104,6 +105,7 @@ const HabitList = () => {
                 .then(() => {
                     loadHabits();
                     resetForm();
+                    setRefreshTrigger(prev => prev + 1);
                 })
                 .catch(error => console.error('Error creating habit:', error));
         }

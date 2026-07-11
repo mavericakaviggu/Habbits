@@ -4,6 +4,7 @@ package com.habittracker.service;
 import com.habittracker.dto.HabitDTO;
 import com.habittracker.entity.Habit;
 import com.habittracker.repository.HabitRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,19 +23,55 @@ public class HabitService {
     private HabitRepository habitRepository;
 
     /**
-     * Retrieve all habits.
-     * @return List of all habits
+     * Initialize orderIndex for existing habits on application startup.
+     * This ensures habits created before the orderIndex feature have proper values.
      */
-    public List<Habit> getAllHabits() {
-        return habitRepository.findAll();
+    @PostConstruct
+    public void initializeOrderIndices() {
+        List<Habit> allHabits = habitRepository.findAll();
+        
+        // Check if we need to initialize (if any habit has null or if multiple have same orderIndex)
+        boolean needsInitialization = false;
+        for (Habit habit : allHabits) {
+            if (habit.getOrderIndex() == null) {
+                needsInitialization = true;
+                break;
+            }
+        }
+        
+        // Count habits with orderIndex = 0
+        long zeroCount = allHabits.stream()
+                .filter(h -> h.getOrderIndex() != null && h.getOrderIndex() == 0)
+                .count();
+        
+        if (zeroCount > 1) {
+            needsInitialization = true;
+        }
+        
+        if (needsInitialization) {
+            // Sort by ID (creation order) and assign sequential orderIndex
+            allHabits.sort((h1, h2) -> h1.getId().compareTo(h2.getId()));
+            for (int i = 0; i < allHabits.size(); i++) {
+                allHabits.get(i).setOrderIndex(i);
+                habitRepository.save(allHabits.get(i));
+            }
+        }
     }
 
     /**
-     * Retrieve all active habits.
-     * @return List of active habits
+     * Retrieve all habits ordered by orderIndex.
+     * @return List of all habits ordered by orderIndex
+     */
+    public List<Habit> getAllHabits() {
+        return habitRepository.findAllByOrderByOrderIndexAsc();
+    }
+
+    /**
+     * Retrieve all active habits ordered by orderIndex.
+     * @return List of active habits ordered by orderIndex
      */
     public List<Habit> getActiveHabits() {
-        return habitRepository.findByIsActiveTrue();
+        return habitRepository.findByIsActiveTrueOrderByOrderIndexAsc();
     }
 
     /**
@@ -60,6 +97,13 @@ public class HabitService {
         habit.setFrequency(habitDTO.getFrequency());
         habit.setTargetCount(habitDTO.getTargetCount());
         habit.setIsActive(habitDTO.getIsActive());
+        // Set orderIndex to be last if not specified
+        if (habitDTO.getOrderIndex() == null || habitDTO.getOrderIndex() == 0) {
+            List<Habit> allHabits = habitRepository.findAll();
+            habit.setOrderIndex(allHabits.size());
+        } else {
+            habit.setOrderIndex(habitDTO.getOrderIndex());
+        }
         return habitRepository.save(habit);
     }
 
@@ -77,6 +121,9 @@ public class HabitService {
         habit.setFrequency(habitDTO.getFrequency());
         habit.setTargetCount(habitDTO.getTargetCount());
         habit.setIsActive(habitDTO.getIsActive());
+        if (habitDTO.getOrderIndex() != null) {
+            habit.setOrderIndex(habitDTO.getOrderIndex());
+        }
         return habitRepository.save(habit);
     }
 
@@ -98,5 +145,17 @@ public class HabitService {
      */
     public List<Habit> searchHabitsByName(String name) {
         return habitRepository.findByNameContainingIgnoreCase(name);
+    }
+    
+    /**
+     * Update the order of multiple habits.
+     * @param habitOrders Map of habit ID to new order index
+     */
+    public void updateHabitOrder(List<Long> habitIds) {
+        for (int i = 0; i < habitIds.size(); i++) {
+            Habit habit = getHabitById(habitIds.get(i));
+            habit.setOrderIndex(i);
+            habitRepository.save(habit);
+        }
     }
 }

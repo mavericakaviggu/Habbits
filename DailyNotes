@@ -1,5 +1,6 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+11-Jul-2026 - Drag and Drop feature added
 
 28-Jun-2026 - 
 ISSUE → Deleting a habit didn't update the DailyTracker checklist in real-time. The habit disappeared only after a page refresh.

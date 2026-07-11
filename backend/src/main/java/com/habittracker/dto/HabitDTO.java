@@ -30,4 +30,6 @@ public class HabitDTO {
     private Integer targetCount = 1;
 
     private Boolean isActive = true;
+
+    private Integer orderIndex = 0;
 }

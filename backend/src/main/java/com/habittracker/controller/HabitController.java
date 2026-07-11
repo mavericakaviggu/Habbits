@@ -98,4 +98,15 @@ public class HabitController {
     public ResponseEntity<List<Habit>> searchHabits(@RequestParam String name) {
         return ResponseEntity.ok(habitService.searchHabitsByName(name));
     }
+    
+    /**
+     * Update the order of habits.
+     * @param habitIds List of habit IDs in the desired order
+     * @return No content response
+     */
+    @PutMapping("/reorder")
+    public ResponseEntity<Void> reorderHabits(@RequestBody List<Long> habitIds) {
+        habitService.updateHabitOrder(habitIds);
+        return ResponseEntity.ok().build();
+    }
 }

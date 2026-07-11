@@ -15,6 +15,7 @@ const HabitList = () => {
     const [showForm, setShowForm] = useState(false);
     const [editingHabit, setEditingHabit] = useState(null);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const [draggedIndex, setDraggedIndex] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -181,6 +182,52 @@ const HabitList = () => {
         setShowForm(false);
     };
 
+    /**
+     * Handle drag start event.
+     * @param {number} index - The index of the dragged habit
+     */
+    const handleDragStart = (index) => {
+        setDraggedIndex(index);
+    };
+
+    /**
+     * Handle drag over event.
+     * @param {Event} e - Drag event
+     */
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    /**
+     * Handle drop event.
+     * @param {number} dropIndex - The index where the habit is dropped
+     */
+    const handleDrop = (dropIndex) => {
+        if (draggedIndex === null || draggedIndex === dropIndex) {
+            setDraggedIndex(null);
+            return;
+        }
+
+        const newHabits = [...habits];
+        const draggedHabit = newHabits[draggedIndex];
+        
+        // Remove from old position
+        newHabits.splice(draggedIndex, 1);
+        // Insert at new position
+        newHabits.splice(dropIndex, 0, draggedHabit);
+        
+        setHabits(newHabits);
+        setDraggedIndex(null);
+        
+        // Update order in backend
+        const habitIds = newHabits.map(habit => habit.id);
+        HabitService.reorderHabits(habitIds)
+            .then(() => {
+                setRefreshTrigger(prev => prev + 1); // Refresh DailyTracker
+            })
+            .catch(error => console.error('Error updating habit order:', error));
+    };
+
     return (
         <div className="habit-list-container">
             <div className="habit-content-wrapper">
@@ -281,8 +328,15 @@ const HabitList = () => {
                 {habits.length === 0 ? (
                     <p className="no-habits">No habits yet. Create your first habit to get started!</p>
                 ) : (
-                    habits.map(habit => (
-                        <article key={habit.id} className="habit-card">
+                    habits.map((habit, index) => (
+                        <article 
+                            key={habit.id} 
+                            className={`habit-card ${draggedIndex === index ? 'dragging' : ''}`}
+                            draggable
+                            onDragStart={() => handleDragStart(index)}
+                            onDragOver={handleDragOver}
+                            onDrop={() => handleDrop(index)}
+                        >
                             <header>
                                 <h3>{habit.name}</h3>
                                 <span className={`badge ${habit.isActive ? 'active' : 'inactive'}`}>

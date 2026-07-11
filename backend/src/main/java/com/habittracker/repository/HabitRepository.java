@@ -21,9 +21,21 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
     List<Habit> findByIsActiveTrue();
     
     /**
+     * Find all active habits ordered by orderIndex.
+     * @return List of active habits ordered by orderIndex
+     */
+    List<Habit> findByIsActiveTrueOrderByOrderIndexAsc();
+    
+    /**
      * Find habits by name containing the search term (case-insensitive).
      * @param name Search term
      * @return List of matching habits
      */
     List<Habit> findByNameContainingIgnoreCase(String name);
+    
+    /**
+     * Find all habits ordered by orderIndex.
+     * @return List of habits ordered by orderIndex
+     */
+    List<Habit> findAllByOrderByOrderIndexAsc();
 }

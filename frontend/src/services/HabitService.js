@@ -74,6 +74,15 @@ class HabitService {
             params: { name }
         });
     }
+
+    /**
+     * Update the order of habits.
+     * @param {Array<number>} habitIds - Array of habit IDs in the desired order
+     * @returns {Promise} Promise with update confirmation
+     */
+    reorderHabits(habitIds) {
+        return axios.put(`${API_BASE_URL}/habits/reorder`, habitIds);
+    }
 }
 
 export default new HabitService();

@@ -45,6 +45,9 @@ public class Habit {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
+    @Column(name = "order_index")
+    private Integer orderIndex = 0;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HabitList from './components/HabitList';
+import Calendar from './components/Calendar';
 import './styles/App.css';
 
 /**
@@ -18,7 +19,7 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<HabitList />} />
-            <Route path="/calendar" element={<div className="placeholder-page"><h2>Calendar View</h2><p>Coming soon...</p></div>} />
+            <Route path="/calendar" element={<Calendar />} />
             <Route path="/statistics" element={<div className="placeholder-page"><h2>Statistics</h2><p>Coming soon...</p></div>} />
           </Routes>
         </main>

@@ -1,5 +1,10 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+
+12-Jul-2026 - habit tracking table
+ISSUE → Calendar tab displayed only a placeholder "Coming soon..." message with no actual habit completion data visualization.
+CHANGE → Created Calendar component with table layout, displays completion status with checkmarks.
+
 11-Jul-2026 - Drag and Drop feature added
 
 28-Jun-2026 - 

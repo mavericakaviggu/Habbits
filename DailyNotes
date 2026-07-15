@@ -1,5 +1,8 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+15-Jul-2026 - Calendar date ordering toggle
+ISSUE → Calendar tab displayed habit completion history in only one fixed order (newest to oldest), with no way to view the data in reverse chronological order.
+CHANGE → Added a toggle button in the Calendar header that switches between "Newest First" (descending) and "Oldest First" (ascending) date order. 
 
 12-Jul-2026 - habit tracking table
 ISSUE → Calendar tab displayed only a placeholder "Coming soon..." message with no actual habit completion data visualization.

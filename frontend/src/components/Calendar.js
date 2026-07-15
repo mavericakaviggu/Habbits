@@ -13,25 +13,40 @@ const Calendar = () => {
     const [entries, setEntries] = useState({});
     const [loading, setLoading] = useState(true);
     const [dateRange, setDateRange] = useState([]);
+    const [isAscending, setIsAscending] = useState(false);
 
     useEffect(() => {
         loadCalendarData();
     }, []);
 
     /**
-     * Generate an array of dates for the last 10 days.
+     * Generate an array of dates for the last 30 days.
      */
     const generateDateRange = () => {
         const dates = [];
         const today = new Date();
         
-        for (let i = 9; i >= 0; i--) {
+        for (let i = 0; i <= 29; i++) {
             const date = new Date(today);
             date.setDate(date.getDate() - i);
             dates.push(date.toISOString().split('T')[0]);
         }
         
         return dates;
+    };
+
+    /**
+     * Toggle the order of dates between ascending and descending.
+     */
+    const toggleOrder = () => {
+        setIsAscending(prev => !prev);
+    };
+
+    /**
+     * Get the date range in the current sort order.
+     */
+    const getOrderedDateRange = () => {
+        return isAscending ? [...dateRange].reverse() : dateRange;
     };
 
     /**
@@ -52,8 +67,9 @@ const Calendar = () => {
             setHabits(habitsToDisplay);
 
             // Load entries for each habit across the date range
-            const startDate = dates[0];
-            const endDate = dates[dates.length - 1];
+            // dates[0] is today (latest), dates[dates.length - 1] is 29 days ago (earliest)
+            const startDate = dates[dates.length - 1];
+            const endDate = dates[0];
             
             const entriesMap = {};
             
@@ -88,7 +104,7 @@ const Calendar = () => {
 
 
     /**
-     * Format date for display (e.g., "Mon 07/08").
+     * Format date for display (e.g., "Mon 15/06").
      * @param {string} dateStr - Date string (YYYY-MM-DD)
      */
     const formatDate = (dateStr) => {
@@ -96,7 +112,7 @@ const Calendar = () => {
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${dayName} ${month}/${day}`;
+        return `${dayName} ${day}/${month}`;
     };
 
     /**
@@ -130,10 +146,24 @@ const Calendar = () => {
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <h2>Habit Calendar</h2>
-                <p className="calendar-subtitle">
-                    View your habit completion history
-                </p>
+                <div className="calendar-title-row">
+                    <div>
+                        <h2>Habit Calendar</h2>
+                        <p className="calendar-subtitle">
+                            View your habit completion history
+                        </p>
+                    </div>
+                    <button 
+                        className="order-toggle-btn" 
+                        onClick={toggleOrder}
+                        title={`Currently showing ${isAscending ? 'oldest to newest' : 'newest to oldest'}. Click to change.`}
+                    >
+                        <span className="order-icon">{isAscending ? '↑' : '↓'}</span>
+                        <span className="order-text">
+                            {isAscending ? 'Oldest First' : 'Newest First'}
+                        </span>
+                    </button>
+                </div>
             </div>
 
             <div className="calendar-table-wrapper">
@@ -151,7 +181,7 @@ const Calendar = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dateRange.map(date => (
+                        {getOrderedDateRange().map(date => (
                             <tr key={date}>
                                 <td className="date-cell">
                                     {formatDate(date)}

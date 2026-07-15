@@ -1,13 +1,13 @@
 /* Calendar View Styles */
 
 .calendar-container {
-    padding: 20px;
+    padding: 12px 20px;
     max-width: 100%;
     margin: 0 auto;
 }
 
 .calendar-header {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .calendar-title-row {
@@ -127,6 +127,7 @@
 .calendar-table tbody tr {
     border-bottom: 1px solid #e0e0e0;
     transition: background-color 0.2s;
+    height: 32px;
 }
 
 .calendar-table tbody tr:hover {
@@ -138,7 +139,7 @@
 }
 
 .date-cell {
-    padding: 14px 12px;
+    padding: 0 12px;
     font-weight: 500;
     color: #333;
     background: white;
@@ -146,7 +147,11 @@
     left: 0;
     z-index: 5;
     border-right: 2px solid #e0e0e0;
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 32px;
+    height: 32px;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .calendar-table tbody tr:hover .date-cell {
@@ -154,12 +159,13 @@
 }
 
 .habit-cell {
-    padding: 12px;
+    padding: 0;
     text-align: center;
     cursor: default;
     transition: all 0.2s ease;
     border-right: 1px solid #e0e0e0;
-    min-height: 50px;
+    height: 32px;
+    vertical-align: middle;
     position: relative;
 }
 
@@ -173,9 +179,10 @@
 }
 
 .checkmark {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     display: inline-block;
+    line-height: 32px;
     animation: checkmarkPop 0.3s ease;
 }
 

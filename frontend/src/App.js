@@ -13,7 +13,7 @@ import './styles/App.css';
  */
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
       <div className="App">
         <Navbar />
         <main className="main-content">

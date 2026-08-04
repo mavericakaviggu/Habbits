@@ -47,6 +47,12 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!--postgresSQL dependency-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
         
         <!-- MySQL Driver (optional, uncomment for production) -->
         <!--

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HabitService from '../services/HabitService';
 import HabitEntryService from '../services/HabitEntryService';
 import DailyTracker from './DailyTracker';
+import ExpenseTracker from './ExpenseTracker';
 import '../styles/HabitList.css';
 
 /**
@@ -379,6 +380,7 @@ const HabitList = () => {
 
                 <aside className="habit-sidebar">
                     <DailyTracker refreshTrigger={refreshTrigger} onCompletionChange={loadHabits} />
+                    <ExpenseTracker />
                 </aside>
             </div>
         </div>

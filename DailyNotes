@@ -1,5 +1,13 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+05-Sep-2025
+Down below are the steps/changes that needs to be done in order to run the application locally.
+BACKEND -> application-local.properties was added
+FRONTEND -> REACT_APP_API_URL=https://demo-deployment-latest-jaxe.onrender.com/api was changed to REACT_APP_API_URL=http://localhost:8080/api
+COMMANDS TO RUN
+BACKEND -> cd backend -> mvn spring-boot:run "-Dspring-boot.run.profiles=local"
+FRONTEND -> cd frontend -> npm install -> npm start
+
 15-Jul-2026 - Calendar date ordering toggle
 ISSUE → Calendar tab displayed habit completion history in only one fixed order (newest to oldest), with no way to view the data in reverse chronological order.
 CHANGE → Added a toggle button in the Calendar header that switches between "Newest First" (descending) and "Oldest First" (ascending) date order. 

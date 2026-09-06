@@ -14,6 +14,7 @@ const HabitList = () => {
     const [habits, setHabits] = useState([]);
     const [completedToday, setCompletedToday] = useState({});
     const [showForm, setShowForm] = useState(false);
+    const [showChecklist, setShowChecklist] = useState(false);
     const [editingHabit, setEditingHabit] = useState(null);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const [draggedIndex, setDraggedIndex] = useState(null);
@@ -235,13 +236,24 @@ const HabitList = () => {
                 <div className="habit-main-section">
                     <div className="page-header">
                         <h2>My Habits</h2>
-                        <button 
-                            onClick={() => setShowForm(!showForm)}
-                            className="btn-primary"
-                            aria-label="Add new habit"
-                        >
-                            {showForm ? 'Cancel' : 'Add Habit'}
-                        </button>
+                        <div className="page-header-actions">
+                            <button 
+                                onClick={() => setShowForm(!showForm)}
+                                className="btn-primary"
+                                aria-label="Add new habit"
+                            >
+                                {showForm ? 'Cancel' : 'Add Habit'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setShowChecklist(!showChecklist)}
+                                className="btn-secondary"
+                                aria-expanded={showChecklist}
+                                aria-controls="habit-checklist"
+                            >
+                                {showChecklist ? 'Hide Checklist' : 'Show Checklist'}
+                            </button>
+                        </div>
                     </div>
 
             {showForm && (
@@ -379,7 +391,11 @@ const HabitList = () => {
                 </div>
 
                 <aside className="habit-sidebar">
-                    <DailyTracker refreshTrigger={refreshTrigger} onCompletionChange={loadHabits} />
+                    {showChecklist && (
+                        <div id="habit-checklist">
+                            <DailyTracker refreshTrigger={refreshTrigger} onCompletionChange={loadHabits} />
+                        </div>
+                    )}
                     <ExpenseTracker />
                 </aside>
             </div>

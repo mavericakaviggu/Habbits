@@ -1,6 +1,8 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
 05-Sep-2025
+
+05-Sep-2025
 Down below are the steps/changes that needs to be done in order to run the application locally.
 BACKEND -> application-local.properties was added
 FRONTEND -> REACT_APP_API_URL=https://demo-deployment-latest-jaxe.onrender.com/api was changed to REACT_APP_API_URL=http://localhost:8080/api

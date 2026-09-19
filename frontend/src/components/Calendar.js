@@ -125,6 +125,16 @@ const Calendar = () => {
         return entries[key] || false;
     };
 
+    /**
+     * Get the total expense (need + want) recorded for a specific date.
+     * @param {string} date - The date (YYYY-MM-DD)
+     */
+    const getTotalExpense = (date) => {
+        const need = parseFloat(localStorage.getItem(`daily-expense-need-${date}`)) || 0;
+        const want = parseFloat(localStorage.getItem(`daily-expense-want-${date}`)) || 0;
+        return need + want;
+    };
+
     if (loading) {
         return (
             <div className="calendar-container">
@@ -178,6 +188,7 @@ const Calendar = () => {
                                     </div>
                                 </th>
                             ))}
+                            <th className="expense-column">Expense</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -197,6 +208,9 @@ const Calendar = () => {
                                         )}
                                     </td>
                                 ))}
+                                <td className="expense-cell" aria-label={`Total expense on ${formatDate(date)}: ${getTotalExpense(date).toFixed(2)}`}>
+                                    {getTotalExpense(date).toFixed(2)}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

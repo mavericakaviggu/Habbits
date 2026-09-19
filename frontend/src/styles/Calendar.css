@@ -117,6 +117,11 @@
     max-width: 120px;
 }
 
+.expense-column {
+    min-width: 90px;
+    max-width: 110px;
+}
+
 .habit-name {
     white-space: nowrap;
     overflow: hidden;
@@ -176,6 +181,17 @@
 .habit-cell.completed {
     background-color: #4caf50;
     color: white;
+}
+
+.expense-cell {
+    padding: 0 12px;
+    text-align: right;
+    font-weight: 500;
+    color: #333;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .checkmark {

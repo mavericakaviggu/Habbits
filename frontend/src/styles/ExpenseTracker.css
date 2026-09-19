@@ -15,7 +15,7 @@
   margin-bottom: 12px;
 }
 
-.expense-tracker input {
+.expense-tracker input[type='number'] {
   border: 1px solid #c9ced3;
   border-radius: 4px;
   box-sizing: border-box;
@@ -24,8 +24,91 @@
   width: 100%;
 }
 
-.expense-tracker input:focus {
+.expense-tracker input[type='number']:focus {
   border-color: #0066cc;
   box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.15);
   outline: none;
+}
+
+.expense-total {
+  align-items: baseline;
+  background: #f4f6f8;
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+}
+
+.expense-total-label {
+  color: #55606b;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.expense-total-value {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.expense-tracker-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.expense-column {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+.expense-column > label {
+  color: #2c3e50;
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.want-categories {
+  border: 1px solid #c9ced3;
+  border-radius: 4px;
+  margin-top: 12px;
+  padding: 10px 12px;
+}
+
+.want-categories legend {
+  color: #55606b;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.want-category-item {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.want-category-item input[type='checkbox'] {
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+}
+
+.want-category-item label {
+  color: #2c3e50;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .expense-tracker-columns {
+    flex-direction: column;
+  }
 }

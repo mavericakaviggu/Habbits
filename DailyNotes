@@ -1,12 +1,15 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
-06-Sep-2025 - Toggle button for checklist display
+19-Sep-2026 - Need and Want expense added
+CHANGE -> Added a section for tracking expense of Wants and Needs
+
+06-Sep-2026 - Toggle button for checklist display
 CHANGE -> A toggle button is used to display the checklist
 
-05-Sep-2025 - Added a daily expense component
+05-Sep-2026 - Added a daily expense component
 CHANGE -> Added a dated “Todays Expenditure” input that saves each day’s expense in browser storage.
 
-05-Sep-2025 - Changes to run the file locally
+05-Sep-2026 - Changes to run the file locally
 Down below are the steps/changes that needs to be done in order to run the application locally.
 BACKEND -> application-local.properties was added
 FRONTEND -> REACT_APP_API_URL=https://demo-deployment-latest-jaxe.onrender.com/api was changed to REACT_APP_API_URL=http://localhost:8080/api

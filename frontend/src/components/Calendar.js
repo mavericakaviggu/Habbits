@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import HabitService from '../services/HabitService';
 import HabitEntryService from '../services/HabitEntryService';
+import ExpenseService from '../services/ExpenseService';
 import '../styles/Calendar.css';
 
 /**
@@ -11,6 +12,7 @@ import '../styles/Calendar.css';
 const Calendar = () => {
     const [habits, setHabits] = useState([]);
     const [entries, setEntries] = useState({});
+    const [expensesByDate, setExpensesByDate] = useState({});
     const [loading, setLoading] = useState(true);
     const [dateRange, setDateRange] = useState([]);
     const [isAscending, setIsAscending] = useState(false);
@@ -94,6 +96,18 @@ const Calendar = () => {
             );
             
             setEntries(entriesMap);
+
+            // Load daily expense totals (Need + Want) for the same date range
+            try {
+                const expensesResponse = await ExpenseService.getByDateRange(startDate, endDate);
+                const expenseMap = {};
+                expensesResponse.data.forEach(expense => {
+                    expenseMap[expense.entryDate] = (expense.needAmount || 0) + (expense.wantAmount || 0);
+                });
+                setExpensesByDate(expenseMap);
+            } catch (error) {
+                console.error('Error loading expense totals:', error);
+            }
         } catch (error) {
             console.error('Error loading calendar data:', error);
         } finally {
@@ -130,9 +144,7 @@ const Calendar = () => {
      * @param {string} date - The date (YYYY-MM-DD)
      */
     const getTotalExpense = (date) => {
-        const need = parseFloat(localStorage.getItem(`daily-expense-need-${date}`)) || 0;
-        const want = parseFloat(localStorage.getItem(`daily-expense-want-${date}`)) || 0;
-        return need + want;
+        return expensesByDate[date] || 0;
     };
 
     if (loading) {

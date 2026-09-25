@@ -1,5 +1,8 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
+25-Sep-2026 - Expense Backend update
+CHANGE -> Expense will be stored in backend instead of localstorage
+
 19-Sep-2026 - Need and Want expense added
 CHANGE -> Added a section for tracking expense of Wants and Needs
 

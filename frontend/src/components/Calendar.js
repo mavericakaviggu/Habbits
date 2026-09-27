@@ -140,11 +140,16 @@ const Calendar = () => {
     };
 
     /**
-     * Get the total expense (need + want) recorded for a specific date.
+     * Format the total expense (need + want) recorded for a specific date.
      * @param {string} date - The date (YYYY-MM-DD)
      */
-    const getTotalExpense = (date) => {
-        return expensesByDate[date] || 0;
+    const formatTotalExpense = (date) => {
+        if (!Object.prototype.hasOwnProperty.call(expensesByDate, date)) {
+            return '--';
+        }
+
+        const total = expensesByDate[date];
+        return total === 0 ? '0' : total;
     };
 
     if (loading) {
@@ -220,8 +225,8 @@ const Calendar = () => {
                                         )}
                                     </td>
                                 ))}
-                                <td className="expense-cell" aria-label={`Total expense on ${formatDate(date)}: ${getTotalExpense(date).toFixed(2)}`}>
-                                    {getTotalExpense(date).toFixed(2)}
+                                <td className="expense-cell" aria-label={`Total expense on ${formatDate(date)}: ${formatTotalExpense(date)}`}>
+                                    {formatTotalExpense(date)}
                                 </td>
                             </tr>
                         ))}

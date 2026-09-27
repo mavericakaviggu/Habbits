@@ -13,6 +13,7 @@ const ExpenseTracker = () => {
     const [needExpense, setNeedExpense] = useState('');
     const [wantExpense, setWantExpense] = useState('');
     const [wantCategories, setWantCategories] = useState([]);
+    const [hasExpenseRecord, setHasExpenseRecord] = useState(false);
     const [loading, setLoading] = useState(true);
     const saveTimeoutRef = useRef(null);
 
@@ -22,6 +23,7 @@ const ExpenseTracker = () => {
         ExpenseService.getByDate(dateKey)
             .then((response) => {
                 if (isMounted && response.data) {
+                    setHasExpenseRecord(true);
                     setNeedExpense(response.data.needAmount ? String(response.data.needAmount) : '');
                     setWantExpense(response.data.wantAmount ? String(response.data.wantAmount) : '');
                     setWantCategories(response.data.wantCategories || []);
@@ -51,6 +53,7 @@ const ExpenseTracker = () => {
             clearTimeout(saveTimeoutRef.current);
         }
 
+        setHasExpenseRecord(true);
         saveTimeoutRef.current = setTimeout(() => {
             ExpenseService.createOrUpdateExpense({
                 entryDate: dateKey,
@@ -89,6 +92,9 @@ const ExpenseTracker = () => {
     });
 
     const totalExpense = (parseFloat(needExpense) || 0) + (parseFloat(wantExpense) || 0);
+    const totalExpenseDisplay = hasExpenseRecord
+        ? String(Number(totalExpense.toFixed(2)))
+        : '--';
 
     if (loading) {
         return (
@@ -105,7 +111,7 @@ const ExpenseTracker = () => {
             </label>
             <div className="expense-total" aria-live="polite">
                 <span className="expense-total-label">Total</span>
-                <span className="expense-total-value">{totalExpense.toFixed(2)}</span>
+                <span className="expense-total-value">{totalExpenseDisplay}</span>
             </div>
             <div className="expense-tracker-columns">
                 <div className="expense-column">

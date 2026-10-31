@@ -1,6 +1,7 @@
 give me a short and crisp summary menitonng the ISSUE and the CHANGE we performed and also the commit ID for this change
 
-
+31-Oct-2026 - DailyReflection card
+CHNAGE -> Added a new card to compare todays progress with yesterday.
 
 25-Sep-2026 - Expense Backend update
 CHANGE -> Expense will be stored in backend instead of localstorage

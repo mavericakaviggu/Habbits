@@ -4,6 +4,7 @@ import HabitService from '../services/HabitService';
 import HabitEntryService from '../services/HabitEntryService';
 import DailyTracker from './DailyTracker';
 import ExpenseTracker from './ExpenseTracker';
+import DailyReflection from './DailyReflection';
 import '../styles/HabitList.css';
 
 /**
@@ -397,6 +398,7 @@ const HabitList = () => {
                         </div>
                     )}
                     <ExpenseTracker />
+                    <DailyReflection />
                 </aside>
             </div>
         </div>
